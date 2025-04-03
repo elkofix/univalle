@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Universidad del Valle - Sistema de Tiquetes</title>
+    <style>
+        /* Estilos generales */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f5f5f5;
+            font-size: 16px;
+        }
+
+        /* Encabezado */
+        header {
+            background-color: white;
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .logo img {
+            height: 40px;
+            margin-right: 10px;
+        }
+
+        .logo h1 {
+            margin: 0;
+            color: #e53935;
+            font-size: 20px;
+        }
+
+        /* Barra de navegación */
+        .navbar {
+            background-color: #e53935;
+            color: white;
+            padding: 10px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .nav-links {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+
+        .nav-item {
+            cursor: pointer;
+            padding: 8px 10px;
+            border-radius: 3px;
+            font-size: 14px;
+        }
+
+        .nav-item:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        .user-controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .user-btn {
+            background-color: white;
+            border: none;
+            border-radius: 3px;
+            padding: 6px 8px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            cursor: pointer;
+            font-size: 12px;
+        }
+
+        /* Barra de búsqueda y fecha */
+        .search-bar {
+            margin: 10px;
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .search-input {
+            padding: 8px 10px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .date-display {
+            width: 100%;
+            font-size: 13px;
+            color: #333;
+            margin-top: 5px;
+        }
+
+        /* Contenido principal */
+        .main-content {
+            padding: 15px;
+        }
+
+        .content-title {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .ticket-form {
+            background-color: white;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            padding: 15px;
+        }
+
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+        }
+
+        .form-section {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-label {
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+
+        .form-input {
+            padding: 8px;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+            background-color: #f5f5f5;
+            width: 100%;
+        }
+
+        .form-section-title {
+            font-size: 15px;
+            font-weight: bold;
+            margin-bottom: 8px;
+            padding-bottom: 5px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .related-items {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .related-item {
+            padding: 8px 0;
+            border-bottom: 1px solid #eee;
+            font-size: 13px;
+        }
+
+        /* Media queries para tablet */
+        @media (min-width: 600px) {
+            .navbar {
+                flex-direction: row;
+                justify-content: space-between;
+                padding: 10px 15px;
+            }
+
+            .nav-links {
+                margin-bottom: 0;
+            }
+
+            .date-display {
+                width: auto;
+                margin-top: 0;
+            }
+
+            .form-group {
+                flex-direction: row;
+                align-items: center;
+            }
+
+            .form-label {
+                width: 150px;
+                margin-bottom: 0;
+            }
+        }
+
+        /* Media queries para escritorio */
+        @media (min-width: 900px) {
+            header {
+                padding: 10px 20px;
+            }
+
+            .logo h1 {
+                font-size: 24px;
+            }
+
+            .navbar {
+                padding: 10px 20px;
+            }
+
+            .nav-item {
+                font-size: 16px;
+            }
+
+            .user-btn {
+                font-size: 14px;
+            }
+
+            .search-bar {
+                margin: 10px 20px;
+            }
+
+            .date-display {
+                font-size: 14px;
+            }
+
+            .main-content {
+                padding: 20px;
+            }
+
+            .content-title {
+                font-size: 20px;
+                margin-bottom: 20px;
+            }
+
+            .ticket-form {
+                padding: 20px;
+            }
+
+            .form-grid {
+                grid-template-columns: 1fr 1fr;
+                gap: 20px;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <div class="logo">
+            <img src="https://universate.co/wp-content/uploads/2022/05/logo-universidad-del-valle.png"
+                alt="Logo Universidad del Valle">
+
+        </div>
+    </header>
+
+    <nav class="navbar">
+        <div class="nav-links">
+            <div class="nav-item">Comprar tiquetes</div>
+            <div class="nav-item">Consultar tiquetes</div>
+            <div class="nav-item">Detalle Tiquetes</div>
+            <div class="nav-item">Reservar almuerzo</div>
+        </div>
+        <div class="user-controls">
+            <button class="user-btn">
+                <i>👤</i> 2224812-3267 ▼
+            </button>
+            <button class="user-btn">
+                <i>🔥</i> Grupo ▼
+            </button>
+            <button class="user-btn">
+                <i>⚙️</i> Perfil ▼
+            </button>
+        </div>
+    </nav>
+
+    <div class="search-bar">
+        <input type="text" class="search-input" placeholder="Ejecutar">
+        <div class="date-display" id="current-datetime">Jueves, 3 de Abril de 2025, 11:55:58</div>
+    </div>
+
+    <div class="main-content">
+        <h2 class="content-title">Consultar tiquete</h2>
+
+        <div class="ticket-form">
+            <div class="form-grid">
+                <div class="form-section">
+                    <div class="form-group">
+                        <label class="form-label">Código</label>
+                        <input type="text" class="form-input" value="202271068">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Documento</label>
+                        <input type="text" class="form-input" value="1088648714">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Nombres</label>
+                        <input type="text" class="form-input" value="YESIKA VALENTINA">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Estamento asignado</label>
+                        <input type="text" class="form-input" value="Estudiante con beca de alimentación">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Tiquetes acumulados</label>
+                        <input type="text" class="form-input" value="1">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Mínimo tiquetes a comprar</label>
+                        <input type="text" class="form-input" value="No aplica">
+                    </div>
+                </div>
+
+                <div class="form-section">
+                    <div class="form-group">
+                        <label class="form-label">Tipo de documento</label>
+                        <input type="text" class="form-input" value="C.C.">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Apellidos</label>
+                        <input type="text" class="form-input" value="PEREZ MIMALCHIG">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Tarifa</label>
+                        <input type="text" class="form-input" value="0">
+                    </div>
+
+                    <div class="form-group">
+                        <label class="form-label">Máximo tiquetes a comprar</label>
+                        <input type="text" class="form-input" value="No aplica">
+                    </div>
+
+                    <div class="form-group" style="margin-top: 15px;">
+                        <label class="form-label">Estamentos relacionados</label>
+                        <div style="flex: 1; width: 100%;">
+                            <div class="form-section-title">Estamentos relacionados</div>
+                            <ol class="related-items">
+                                <li class="related-item">Estudiante pregrado</li>
+                                <li class="related-item">Estudiante con beca de alimentación</li>
+                                <li class="related-item">Estudiante de pregrado monitor</li>
+                            </ol>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Función para actualizar la fecha y hora
+        function updateDateTime() {
+            const now = new Date();
+
+            // Definir nombres de días en español
+            const diasSemana = ['Domingo', 'Lunes', 'Martes', 'Miércoles', 'Jueves', 'Viernes', 'Sábado'];
+
+            // Definir nombres de meses en español
+            const meses = ['Enero', 'Febrero', 'Marzo', 'Abril', 'Mayo', 'Junio', 'Julio', 'Agosto', 'Septiembre', 'Octubre', 'Noviembre', 'Diciembre'];
+
+            // Formatear la fecha
+            const diaSemana = diasSemana[now.getDay()];
+            const dia = now.getDate();
+            const mes = meses[now.getMonth()];
+            const año = now.getFullYear();
+
+            // Formatear la hora
+            const horas = now.getHours().toString().padStart(2, '0');
+            const minutos = now.getMinutes().toString().padStart(2, '0');
+            const segundos = now.getSeconds().toString().padStart(2, '0');
+
+            // Actualizar el contenido del elemento
+            document.getElementById('current-datetime').textContent = `${diaSemana}, ${dia} de ${mes} de ${año}, ${horas}:${minutos}:${segundos}`;
+        }
+
+        // Actualizar la fecha y hora inicial
+        updateDateTime();
+
+        // Actualizar la fecha y hora cada segundo
+        setInterval(updateDateTime, 1000);
+    </script>
+</body>
+
+</html>
